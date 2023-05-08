@@ -1,0 +1,133 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data GPT</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static "assets/css/bootstrap.min.css" %}">
+    <link rel="stylesheet" href="{% static "assets/css/font-awesome.min.css" %}">
+    <!-- general css -->
+    <link rel="stylesheet" href="{% static "assets/css/style.css" %}">
+    <link rel="stylesheet" href="{% static "assets/css/responsive.css" %}">
+    <!-- Custom css -->
+
+
+</head>
+
+<body>
+    <header class="header">
+        <nav class="navbar navbar-toggleable-md navbar-light pt-0 pb-0 ">
+
+
+            <div class="float-left">
+                <a href="#" class="button-left">
+                    <svg stroke="currentColor" fill="none" stroke-width="1.5" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                </a>
+            </div>
+            <div class="collapse navbar-collapse flex-row-reverse" id="navbarNavDropdown">
+
+            </div>
+        </nav>
+    </header>
+    <div class="main">
+        <aside>
+            <div class="sidebar left ">
+                <ul class="list-sidebar bg-defoult">
+
+                    <li> <a href="#"><svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg> <span class="nav-label">Upgrade to Plus</span></a></li>
+                    <li> <a href="#"><svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg> <span class="nav-label">Get help</span></a></li>
+                </ul>
+            </div>
+            <div class="content-wrapper">
+                <div class="container">
+                    <div class="content-header">
+                        <div class="row h-100">
+                            <div class="col-lg-12">
+                                <div class="small-box ">
+                                    <div class="inner">
+                                        <h1 class="text-4xl font-semibold text-center mt-6 sm:mt-[20vh] mb-16 ml-auto mr-auto mb-10 flex gap-2 items-center justify-center">DataGPT</h1>
+                                        <div class="loader loader--style1" title="0">
+                                            <svg version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 40 40" enable-background="new 0 0 40 40" xml:space="preserve">
+                                          <path opacity="0.2" fill="#000" d="M20.201,5.169c-8.254,0-14.946,6.692-14.946,14.946c0,8.255,6.692,14.946,14.946,14.946
+                                            s14.946-6.691,14.946-14.946C35.146,11.861,28.455,5.169,20.201,5.169z M20.201,31.749c-6.425,0-11.634-5.208-11.634-11.634
+                                            c0-6.425,5.209-11.634,11.634-11.634c6.425,0,11.633,5.209,11.633,11.634C31.834,26.541,26.626,31.749,20.201,31.749z"/>
+                                          <path fill="#000" d="M26.013,10.047l1.654-2.866c-2.198-1.272-4.743-2.012-7.466-2.012h0v3.312h0
+                                            C22.32,8.481,24.301,9.057,26.013,10.047z">
+                                            <animateTransform attributeType="xml"
+                                              attributeName="transform"
+                                              type="rotate"
+                                              from="0 20 20"
+                                              to="360 20 20"
+                                              dur="0.5s"
+                                              repeatCount="indefinite"/>
+                                            </path>
+                                          </svg>
+                                        </div>
+                                    </div>
+                                    {% if data %}
+                                        <h2>Search Results</h2>
+                                        <table>
+                                            <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Rating</th>
+                                                <th>Address</th>
+                                                <th>Phone</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for result in data %}
+                                                <tr>
+                                                <td>{{ result.name }}</td>
+                                                <td>{{ result.rating }}</td>
+                                                <td>{{ result.location.address1 }}, {{ result.location.city }}, {{ result.location.state }}</td>
+                                                <td>{{ result.phone }}</td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    {% else %}
+                                        <p>No results found.</p>
+                                    {% endif %}
+                                </div>
+                                <a href="{% url 'save_to_excel' %}?{% for result in data %}data={{ result.id }}&{% endfor %}">Download as Excel</a>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="chat">
+                                    <div class="write">
+                                        <input type="text">
+                                        {% comment %} <button class="write-link send">
+                                            <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 mr-1" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                                        </button> {% endcomment %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+    </div>
+
+
+
+
+
+
+    <!-- jQuery, Popper.js, and Bootstrap JS -->
+
+    <script src=" {% static "assets/js/jquery-3.6.0.min.js" %}"></script>
+    <script src=" {% static "assets/js/popper.min.js" %}"></script>
+    <script src=" {% static "assets/js/bootstrap.min.js" %}"></script>
+
+    <!-- custom script js -->
+    <script src=" {% static "assets/js/script.js" %}"></script>
+</body>
+
+</html>

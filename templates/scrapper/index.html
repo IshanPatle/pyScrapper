@@ -1,0 +1,129 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data GPT</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static "assets/css/bootstrap.min.css" %}">
+    <link rel="stylesheet" href="{% static "assets/css/font-awesome.min.css" %}">
+    <!-- general css -->
+    <link rel="stylesheet" href="{% static "assets/css/style.css" %}">
+    <link rel="stylesheet" href="{% static "assets/css/responsive.css" %}"> 
+    <!-- Custom css -->
+
+
+</head>
+
+<body>
+    <header class="header">
+        <nav class="navbar navbar-toggleable-md navbar-light pt-0 pb-0 ">
+
+
+            <div class="float-left">
+                <a href="#" class="button-left">
+                    <svg stroke="currentColor" fill="none" stroke-width="1.5" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                </a>
+            </div>
+            <div class="collapse navbar-collapse flex-row-reverse" id="navbarNavDropdown">
+
+            </div>
+        </nav>
+    </header>   
+    <div class="main">
+        <aside>
+            <div class="sidebar left ">
+                <ul class="list-sidebar bg-defoult">
+
+                    <li> <a href="#"><svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg> <span class="nav-label">Upgrade to Plus</span></a></li>
+                    <li> <a href="#"><svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg> <span class="nav-label">Get help</span></a></li>
+                    <li> <a href="#"><svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg> <span class="nav-label">Logout</span></a></li>
+                </ul>
+            </div>
+            <div class="content-wrapper">   
+                <div class="container">
+                    <div class="content-header">
+                        <div class="row h-100">
+                            <div class="col-lg-12">
+                                <div class="small-box ">
+                                    <div class="inner">
+                                        <h1 class="text-4xl font-semibold text-center mt-6 sm:mt-[20vh] mb-16 ml-auto mr-auto mb-10 flex gap-2 items-center justify-center">DataGPT</h1>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-4">
+                                        <div class="examples-list">
+                                            <h2 class="items-center mx-auto text-lg font-normal d-md-flex w-150px flex-col gap-2 mb-3">
+                                                <svg stroke="currentColor" fill="none" stroke-width="1.5" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>                                                Examples</h2>
+                                            <ul class="list-data-gpd">
+                                                <li class="w-full bg-gray-50">"Explain quantum computing in simple terms"</li>
+                                                <li class="w-full bg-gray-50">"Got any creative ideas for a 10 year old’s birthday?"</li>
+                                                <li class="w-full bg-gray-50">"How do I make an HTTP request in Javascript?"</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4">
+                                        <div class="capabilities-list ">
+                                            <h2 class="items-center mx-auto text-lg font-normal d-md-flex w-150px flex-col gap-2 mb-3"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" class="h-6 w-6"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"></path></svg>                                                Capabilities</h2>
+                                            <ul class="list-data-gpd">
+                                                <li class="w-full bg-gray-50">Remembers what user said earlier in the conversation</li>
+                                                <li class="w-full bg-gray-50">Allows user to provide follow-up corrections</li>
+                                                <li class="w-full bg-gray-50">Trained to decline inappropriate requests</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4">
+                                        <div class="limitations-list ">
+                                            <h2 class="items-center mx-auto text-lg font-normal d-md-flex w-150px flex-col gap-2 mb-3"><svg stroke="currentColor" fill="none" stroke-width="1.5" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>                                                Limitations</h2>
+                                            <ul class="list-data-gpd">
+                                                <li class="w-full bg-gray-50 ">May occasionally generate incorrect information</li>
+                                                <li class="w-full bg-gray-50 ">May occasionally produce harmful instructions or biased content</li>
+                                                <li class="w-full bg-gray-50 ">Limited knowledge of world and events after 2021</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                            <div class="col-lg-12">
+                                <div class="chat">
+                                    <form method="GET" action="{% url 'search_results' %}">
+                                        {% csrf_token %}    
+                                        <div class="write">
+                                        <input type="text" id="search_query" name="query" placeholder="Enter your query..." />
+                                        <button class="write-link send" type="submit">
+                                            <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 mr-1" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                                        </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+    </div>
+
+
+
+
+
+
+    <!-- jQuery, Popper.js, and Bootstrap JS -->
+
+    <script src="{% static "assets/js/jquery-3.6.0.min.js" %}"></script>
+    <script src="{% static "assets/js/popper.min.js" %}"></script>
+    <script src="{% static "assets/js/bootstrap.min.js" %}"></script>
+
+    <!-- custom script js -->
+    <script src="{% static "assets/js/script.js" %}"></script>
+</body>
+
+</html>

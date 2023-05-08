@@ -1,0 +1,114 @@
+@media (max-width: 2100px) {
+    .content-wrapper {
+        margin-left: 260px;
+        height: 100vh;
+    }
+}
+
+@media (max-width: 1280px) {
+    .content-wrapper {
+        margin-left: 260px;
+        height: 100vh;
+    }
+    .list-data-gpd li {
+        padding: 0.75rem 1rem;
+        font-size: 14px;
+    }
+    .sm\:mt-\[20vh\] {
+        margin-top: 16vh;
+    }
+    .write input {
+        width: 94%;
+    }
+    .chat {
+        width: 96%;
+    }
+}
+
+@media (max-width: 991px) {
+    .content-wrapper {
+        margin-left: 260px;
+        height: 100vh;
+    }
+    .list-data-gpd li {
+        padding: 0.75rem 1rem;
+        font-size: 14px;
+    }
+    .sm\:mt-\[20vh\] {
+        margin-top: 16vh;
+    }
+    .write input {
+        width: 90%;
+    }
+    .chat {
+        width: 95%;
+    }
+    .faq-section {
+        padding: 50px 0;
+    }
+}
+
+@media (max-width:767px) {
+    .header {
+        background-color: #202123;
+        padding: 10px 0;
+        display: block;
+        position: fixed;
+        z-index: 999;
+        width: 100%;
+    }
+    .sidebar {
+        width: 0;
+        display: none;
+    }
+    .sidebar.fliph {
+        display: block;
+        width: 319px;
+        z-index: 99;
+        position: fixed;
+        padding-top: 60px;
+    }
+    .content-wrapper {
+        margin-left: 0;
+    }
+    .sm\:mt-\[20vh\] {
+        margin-top: 10vh;
+    }
+    .mb-16 {
+        margin-bottom: 2rem;
+    }
+    .chat {
+        position: fixed;
+        margin-bottom: 0;
+        background: #fff;
+        min-height: 80px;
+        bottom: 0;
+        padding: 10px;
+        border-top: 1px solid rgba(0, 0, 0, .1);
+        left: 0;
+        width: 100%;
+    }
+    .list-data-gpd li {
+        padding: 0.75rem 2rem;
+    }
+    .write input {
+        width: 88%;
+    }
+    .examples-list,
+    .capabilities-list {
+        margin-bottom: 50px;
+    }
+    .limitations-list {
+        margin-bottom: 100px;
+    }
+    .faq-section {
+        padding: 40px 0;
+    }
+    .header-bg {
+        padding: 15px 0 25px;
+    }
+    .has-search {
+        position: relative;
+        margin-top: 20px;
+    }
+}
