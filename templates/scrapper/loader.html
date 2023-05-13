@@ -16,7 +16,6 @@
     <link rel="stylesheet" href="{% static "assets/css/responsive.css" %}">
     <!-- Custom css -->
 
-
 </head>
 
 <body>
@@ -49,7 +48,7 @@
                         <div class="row h-100">
                             <div class="col-lg-12">
                                 <div class="small-box ">
-                                    <div class="inner">
+                                    {% comment %} <div class="inner">
                                         <h1 class="text-4xl font-semibold text-center mt-6 sm:mt-[20vh] mb-16 ml-auto mr-auto mb-10 flex gap-2 items-center justify-center">DataGPT</h1>
                                         <div class="loader loader--style1" title="0">
                                             <svg version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 40 40" enable-background="new 0 0 40 40" xml:space="preserve">
@@ -68,34 +67,35 @@
                                             </path>
                                           </svg>
                                         </div>
-                                    </div>
-                                    {% if data %}
-                                        <h2>Search Results</h2>
-                                        <table>
-                                            <thead>
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>Rating</th>
-                                                <th>Address</th>
-                                                <th>Phone</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            {% for result in data %}
-                                                <tr>
-                                                <td>{{ result.name }}</td>
-                                                <td>{{ result.rating }}</td>
-                                                <td>{{ result.location.address1 }}, {{ result.location.city }}, {{ result.location.state }}</td>
-                                                <td>{{ result.phone }}</td>
-                                                </tr>
+                                    </div> {% endcomment %}
+                                    <h2>Search Results</h2>
+                                    <table>
+                                      <thead>
+                                        <tr>
+                                          <th>Name</th>&nbsp;&nbsp;
+                                          <th>Rating</th>&nbsp;&nbsp;
+                                          <th>Address</th>&nbsp;&nbsp;
+                                          <th>Phone</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        {% for business in data %}
+                                        <tr>
+                                          <td>{{ business.name }}</td>
+                                          <td>{{ business.rating }}</td>
+                                          <td>
+                                            {% for line in business.location.display_address %}
+                                            <div>{{ line }}</div>
                                             {% endfor %}
-                                            </tbody>
-                                        </table>
-                                    {% else %}
-                                        <p>No results found.</p>
-                                    {% endif %}
+                                          </td>
+                                          <td>{{ business.display_phone }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                      </tbody>
+                                    </table>
                                 </div>
-                                <a href="{% url 'save_to_excel' %}?{% for result in data %}data={{ result.id }}&{% endfor %}">Download as Excel</a>
+                                <form method="get" action="{% url 'save_to_excel' %}">
+                                <button type="submit">Download</button>
                             </div>
                             <div class="col-lg-12">
                                 <div class="chat">

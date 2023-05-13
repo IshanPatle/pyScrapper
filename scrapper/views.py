@@ -55,32 +55,37 @@ def search_results(request):
         url = "https://api.yelp.com/v3/businesses/search"
         headers = {"accept": "application/json", 'Authorization': 'Bearer 91W-_HhIV_cJalivp6ChUNMZEul_amepQNmJqnjKp49mavL2pXJiNIBrp4BS95-skiNtOIlifMCZlcacZ9gxFRVWO7JSuZhR6hfMlofQKwSUwSIEPjiFhSNjlYtFZHYx'}
         businesses = []
-        for offset in range(0, 100, 20):
-            params = {
-                'term': query,
-                'location': 'Australia',
-                'offset': offset
-            }
+        params={
+                'location': query.split('in ')[-1],
+                'term': query.split('in ')[0],
+                'limit': 50
+                }
         # params = {'term': query, 'location': 'Australia'}
         response = requests.get(url, headers=headers, params=params)
-        data = response.json()
-        businesses.extend(data['businesses'])
+        data = response.json()['businesses']
+        print(data)
+        
+        df = pd.DataFrame(columns=['Name', 'Rating', 'Address', 'Phone'])
+        for business in data:
+            name = business['name']
+            rating = business['rating']
+            address = ', '.join(business['location']['display_address'])
+            phone = business['display_phone']
+            df = df.append({'Name': name, 'Rating': rating, 'Address': address, 'Phone': phone}, ignore_index=True)
+        # convert dataframe to excel file
+        excel_file = df.to_excel('results.xlsx', index=False)
+        # return rendered response
+        context = {'data': data}
+        return render(request, 'loader.html', context)
     else:
-        data = []
-    return render(request, 'loader.html')
+        return render(request, 'index.html')
 
 
 
 def save_to_excel(request):
-    data = request.GET.getlist('data') # get the search results from the GET parameters
-    wb = Workbook()
-    ws = wb.active
-    ws.append(['Name', 'Rating', 'Address', 'Phone'])
-    for result in data[:50]:
-        ws.append([result['name'], result['rating'], f"{result['location']['address1']}, {result['location']['city']}, {result['location']['state']}", result['phone']])
-    filename = 'search_results.xlsx'
-    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-    response['Content-Disposition'] = f'attachment; filename="{filename}"'
-    wb.save(response)
-    return response
+    file_path = 'results.xlsx'
+    with open(file_path, 'rb') as fh:
+        response = HttpResponse(fh.read(), content_type='application/vnd.ms-excel')
+        response['Content-Disposition'] = 'attachment; filename=' + file_path.split('/')[-1]
+        return response
     

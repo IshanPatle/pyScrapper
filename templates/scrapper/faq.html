@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,11 +8,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Data GPT</title>
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/font-awesome.min.css    ">
+    <link rel="stylesheet" href="{% static "assets/css/bootstrap.min.css" %}">
+    <link rel="stylesheet" href="{% static "assets/css/font-awesome.min.css" %}">
     <!-- general css -->
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/responsive.css">
+    <link rel="stylesheet" href="{% static "assets/css/style.css" %}">
+    <link rel="stylesheet" href="{% static "assets/css/responsive.css" %}"> 
     <!-- Custom css -->
 
 
@@ -134,18 +135,17 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </section>
 
     <!-- jQuery, Popper.js, and Bootstrap JS -->
 
-    <script src="assets/js/jquery-3.6.0.min.js "></script>
-    <script src="assets/js/popper.min.js "></script>
-    <script src="assets/js/bootstrap.min.js "></script>
+    <script src="{% static "assets/js/jquery-3.6.0.min.js" %}"></script>
+    <script src="{% static "assets/js/popper.min.js" %}"></script>
+    <script src="{% static "assets/js/bootstrap.min.js" %}"></script>
 
     <!-- custom script js -->
-    <script src="assets/js/script.js"></script>
+    <script src="{% static "assets/js/script.js" %}"></script>
 </body>
 
 </html>

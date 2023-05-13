@@ -3,8 +3,7 @@ from . import views
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls import url
-from .views import search_results
-
+from. import views
 
 from django.views.static import serve
 from django.conf import settings
