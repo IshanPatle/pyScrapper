@@ -20,8 +20,7 @@
 
 <body>
     <header class="header">
-        <nav class="navbar navbar-toggleable-md navbar-light pt-0 pb-0 ">
-
+        <nav class="navbar navbar-toggleable-md navbar-light pt-0 pb-0 ">z
 
             <div class="float-left">
                 <a href="#" class="button-left">
@@ -48,6 +47,19 @@
                         <div class="row h-100">
                             <div class="col-lg-12">
                                 <div class="small-box ">
+                                    <div class="container">
+                                    </br>
+                                        <!-- Actual search box -->
+                                        <form action="GET">
+                                            <div class="form-group has-search">
+                                                <input type="text" name="q" class="form-control" placeholder="Search">
+                                                <button type="submit" aria-label="Search for articles" class="search__submit o__ltr"> 
+                                                    <span class="fa fa-search form-control-feedback"></span>
+                                                </button>
+                                            </div>
+                                        </form>
+                                        <!-- Another variation with a button -->
+                                    </div>
                                     {% comment %} <div class="inner">
                                         <h1 class="text-4xl font-semibold text-center mt-6 sm:mt-[20vh] mb-16 ml-auto mr-auto mb-10 flex gap-2 items-center justify-center">DataGPT</h1>
                                         <div class="loader loader--style1" title="0">
@@ -68,47 +80,88 @@
                                           </svg>
                                         </div>
                                     </div> {% endcomment %}
-                                    <h2>Search Results</h2>
-                                    <table>
-                                      <thead>
+                                </br>
+                                <div id="table-container">
+                                    <table id="my-table" style="margin: auto; width: 80%; border-collapse: collapse;">
+                                      <thead style="background-color: #ddd;">
                                         <tr>
-                                          <th>Name</th>&nbsp;&nbsp;
-                                          <th>Rating</th>&nbsp;&nbsp;
-                                          <th>Address</th>&nbsp;&nbsp;
-                                          <th>Phone</th>
+                                          <th style="border: 1px solid black; padding: 10px;">Name</th>
+                                          <th style="border: 1px solid black; padding: 10px;">Rating</th>
+                                          <th style="border: 1px solid black; padding: 10px;">Address</th>
+                                          <th style="border: 1px solid black; padding: 10px;">Phone</th>    
                                         </tr>
                                       </thead>
                                       <tbody>
-                                        {% for business in data %}
-                                        <tr>
-                                          <td>{{ business.name }}</td>
-                                          <td>{{ business.rating }}</td>
-                                          <td>
-                                            {% for line in business.location.display_address %}
+                                        {% for result in results %}                                        
+                                        <tr style="border: 1px solid black;">
+                                          <td style="border: 1px solid black; padding: 10px;">{{ result.name }}</td>
+                                          <td style="border: 1px solid black; padding: 10px;">{{ result.rating }}</td>
+                                          <td style="border: 1px solid black; padding: 10px;">
+                                            {% for line in result.location.display_address %}
                                             <div>{{ line }}</div>
                                             {% endfor %}
                                           </td>
-                                          <td>{{ business.display_phone }}</td>
+                                          <td style="border: 1px solid black; padding: 10px;">{{ result.display_phone }}</td>
                                         </tr>
                                         {% endfor %}
                                       </tbody>
+                                      <div style="padding-right: 110px; text-align: right;" id="pagination">
+                                        <button id="prev-btn">Previous</button>
+                                        <button id="next-btn">Next</button>
+                                      </div>
+                                      <br>
+                                      <script>
+                                        var table = document.getElementById("my-table");
+                                        var rows = table.getElementsByTagName("tr");
+                                        var currentPage = 1;
+                                        var rowsPerPage = 10;
+                                      
+                                        function showPage(page) {
+                                          var startIndex = (page - 1) * rowsPerPage;
+                                          var endIndex = startIndex + rowsPerPage;
+                                      
+                                          for (var i = 0; i < rows.length; i++) {
+                                            if (i === 0 || (i >= startIndex && i < endIndex)) {
+                                              rows[i].style.display = "";
+                                            } else {
+                                              rows[i].style.display = "none";
+                                            }
+                                          }
+                                        }
+                                      
+                                        function goToPreviousPage() {
+                                          if (currentPage > 1) {
+                                            currentPage--;
+                                            showPage(currentPage);
+                                          }
+                                        }
+                                      
+                                        function goToNextPage() {
+                                          if (currentPage < Math.ceil(rows.length / rowsPerPage)) {
+                                            currentPage++;
+                                            showPage(currentPage);
+                                          }
+                                        }
+                                      
+                                        document.getElementById("prev-btn").addEventListener("click", goToPreviousPage);
+                                        document.getElementById("next-btn").addEventListener("click", goToNextPage);
+                                      
+                                        // Show the initial page
+                                        showPage(currentPage);
+                                      </script>
+                                      
+                                    {% comment %} </table> {% endcomment %}
                                     </table>
+                                    <br>
+                                    <div style="text-align: center;">   
+                                      <form method="get" action="{% url 'save_to_excel' %}">    
+                                      <button style="margin: 10px;">Download</button>
+                                    </div>  
                                 </div>
-                                <form method="get" action="{% url 'save_to_excel' %}">
-                                <button type="submit">Download</button>
-                            </div>
-                            <div class="col-lg-12">
-                                <div class="chat">
-                                    <div class="write">
-                                        <input type="text">
-                                        {% comment %} <button class="write-link send">
-                                            <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 mr-1" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-                                        </button> {% endcomment %}
-                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>  
                 </div>
             </div>
         </aside>

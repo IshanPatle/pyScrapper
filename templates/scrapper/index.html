@@ -92,10 +92,10 @@
 
                             <div class="col-lg-12">
                                 <div class="chat">
-                                    <form method="GET" action="{% url 'search_results' %}">
-                                        {% csrf_token %}    
+                                    <form method="GET" action="{% url 'search' %}">
+                                        {% comment %} {% csrf_token %}     {% endcomment %}
                                         <div class="write">
-                                        <input type="text" id="search_query" name="query" placeholder="Enter your query..." />
+                                        <input type="text" name="q" placeholder="Enter your query..." />
                                         <button class="write-link send" type="submit">
                                             <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 mr-1" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
                                         </button>
@@ -110,10 +110,6 @@
         </aside>
 
     </div>
-
-
-
-
 
 
     <!-- jQuery, Popper.js, and Bootstrap JS -->

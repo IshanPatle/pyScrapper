@@ -615,6 +615,7 @@ a:hover {
 }
 
 
+
 /* Bootstrap 4 text input with search icon */
 
 .has-search {
@@ -625,7 +626,7 @@ a:hover {
 .has-search .form-control {
     width: 100%;
     padding: 30px 32px 30px 59px;
-    background: hsla(0, 0%, 100%, .2);
+    background: hsl(0deg 0% 86.67%);
     border: none;
     outline: none;
     font-size: 18px;
@@ -653,11 +654,11 @@ a:hover {
     font-weight: 400;
     text-align: center;
     pointer-events: none;
-    color: #fff;
+    color: #000000;
 }
 
 .has-search .form-control::placeholder {
-    color: #fff;
+    color: #000000;
     opacity: 1;
     /* Firefox */
 }
