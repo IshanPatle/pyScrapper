@@ -45,7 +45,7 @@ def get_serp_results(request):
     api_key = 'ab5c8496b40ee68d2b887dc8587cdb62b0f538ad87b479ae1374280242ef084c'
     query = request.GET.get('q', '')  # Get the query entered by the user
     search_engine = 'google_maps'
-    num_results = 10  # Number of results to retrieve
+    num_results = 30  # Number of results to retrieve
 
     # Extract the number and location from the query using regular expressions
     number_match = re.search(r'\b(\d+)\b', query)
@@ -55,7 +55,6 @@ def get_serp_results(request):
     location = location_match.group(1).strip() if location_match else ''  # Default location if not specified
 
     url = f"https://serpapi.com/search.json?engine={search_engine}&q={query}&location={location}&num={number}&api_key={api_key}"
-    print(url)
     try:
         response = requests.get(url)
         data = response.json()

@@ -1,13 +1,15 @@
 from django.urls import path 
-from . import views
 from django.contrib import admin
 from django.conf import settings
-from django.conf.urls import url
-from. import views
-
+from django.urls import re_path
 from django.views.static import serve
 from django.conf import settings
+from . import views
 from django.conf.urls.static import static
+from .views import save_to_excel, search
+from .views import search, save_to_excel
+
+
 
 urlpatterns = [
     path('', views.index, name='index'),
@@ -16,10 +18,9 @@ urlpatterns = [
     
     path('loader/', views.loader, name='loader'),
     path('login/', views.login, name='login'),
-    path('search/', views.search, name='search'),
-    path('save_to_excel/', views.save_to_excel, name='save_to_excel'),
-
-    url(r'^download/(?P<path>.*)$', serve, {'document_root':settings.MEDIA_ROOT}),
+    path('search/', search, name='search'),
+    # path('save-to-excel/', save_to_excel, name='save_to_excel'),
+    re_path(r'^download/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
     ]
 
 if settings.DEBUG:
