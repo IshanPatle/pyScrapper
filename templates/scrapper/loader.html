@@ -149,13 +149,14 @@
                                         // Show the initial page
                                         showPage(currentPage);
                                       </script>
-                                      
+
                                     {% comment %} </table> {% endcomment %}
                                     </table>
                                     <br>
                                     <div style="text-align: center;">   
-                                      <form method="get" action="{% url 'save_to_excel' %}">    
-                                      <button style="margin: 10px;">Download</button>
+                                      <form method="GET" action="{% url 'save_to_excel' %}">    
+                                        <button style="margin: 10px;">Download</button>
+                                      </form>
                                     </div>  
                                 </div>
                                 </div>
