@@ -18,8 +18,8 @@ urlpatterns = [
     
     path('loader/', views.loader, name='loader'),
     path('login/', views.login, name='login'),
-    path('search/', search, name='search'),
-    # path('save-to-excel/', save_to_excel, name='save_to_excel'),
+    path('search/', views.search, name='search'),
+    path('save-to-excel/', views.save_to_excel, name='save-to-excel'),
     re_path(r'^download/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
     ]
 

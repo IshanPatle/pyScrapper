@@ -4,18 +4,17 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data GPT</title>
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="{% static "assets/css/bootstrap.min.css" %}">
-    <link rel="stylesheet" href="{% static "assets/css/font-awesome.min.css" %}">
-    <!-- general css -->
-    <link rel="stylesheet" href="{% static "assets/css/style.css" %}">
-    <link rel="stylesheet" href="{% static "assets/css/responsive.css" %}">
-    <!-- Custom css -->
-
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data GPT</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="{% static "assets/css/bootstrap.min.css" %}">
+  <link rel="stylesheet" href="{% static "assets/css/font-awesome.min.css" %}">
+  <!-- general css -->
+  <link rel="stylesheet" href="{% static "assets/css/style.css" %}">
+  <link rel="stylesheet" href="{% static "assets/css/responsive.css" %}"> 
+  <!-- Custom css -->
 </head>
 
 <body>
@@ -32,32 +31,32 @@
             </div>
         </nav>
     </header>
-    <div class="main">  
-        <aside>
-            <div class="sidebar-loader left ">
-                {% comment %} <ul class="list-sidebar bg-defoult">
-
-                    <li> <a href="#"><svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg> <span class="nav-label">Upgrade to Plus</span></a></li>
-                    <li> <a href="#"><svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg> <span class="nav-label">Get help</span></a></li>
-                </ul> {% endcomment %}
-            </div>
-            <div class="content-wrapper">
-                <div class="container">
-                    <div class="content-header">
-                        <div class="row h-100">
-                            <div class="col-lg-12">
-                                <div class="small-box ">
+    <div class="main">
+      <aside>
+          <div class="sidebar left">
+              <ul class="list-sidebar bg-defoult">
+                  <li> <a href="#"><svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg> <span class="nav-label">Upgrade to Plus</span></a></li>
+                  <li> <a href="#"><svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg> <span class="nav-label">Get help</span></a></li>
+                  <li> <a href="{% url 'faq' %}"><svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg> <span class="nav-label">FAQ</span></a></li>
+              </ul>
+          </div>
+          <div class="content-wrapper">   
+              <div class="container">
+                  <div class="content-header">
+                      <div class="row h-100">
+                          <div class="col-lg-12">
+                              <div class="small-box ">
                                     <div class="container">
                                     </br>
                                         <!-- Actual search box -->
-                                        <form action="GET">
-                                            <div class="form-group has-search">
-                                                <input type="text" name="q" class="form-control" placeholder="Search">
-                                                <button type="submit" aria-label="Search for articles" class="search__submit o__ltr"> 
-                                                    <span class="fa fa-search form-control-feedback"></span>
-                                                </button>
-                                            </div>
-                                        </form>
+                                        <form method="GET" action="{% url 'search' %}">
+                                          <div class="write">
+                                          <input type="text" name="q" placeholder="Enter your query..." />
+                                          <button class="write-link send" type="submit">
+                                              <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 mr-1" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                                          </button>
+                                          </div>
+                                      </form>
                                         <!-- Another variation with a button -->
                                     </div>
                                     {% comment %} <div class="inner">
@@ -149,13 +148,15 @@
                                         // Show the initial page
                                         showPage(currentPage);
                                       </script>
-                                      
+
                                     {% comment %} </table> {% endcomment %}
                                     </table>
                                     <br>
                                     <div style="text-align: center;">   
-                                      <form method="get" action="{% url 'save_to_excel' %}">    
-                                      <button style="margin: 10px;">Download</button>
+                                      <form action="{% url 'save-to-excel' %}" method="GET">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-primary">Download Excel</button>
+                                      </form>
                                     </div>  
                                 </div>
                                 </div>
@@ -165,22 +166,16 @@
                 </div>
             </div>
         </aside>
-
     </div>
-
-
-
-
-
 
     <!-- jQuery, Popper.js, and Bootstrap JS -->
 
-    <script src=" {% static "assets/js/jquery-3.6.0.min.js" %}"></script>
-    <script src=" {% static "assets/js/popper.min.js" %}"></script>
-    <script src=" {% static "assets/js/bootstrap.min.js" %}"></script>
+    <script src="{% static "assets/js/jquery-3.6.0.min.js" %}"></script>
+    <script src="{% static "assets/js/popper.min.js" %}"></script>
+    <script src="{% static "assets/js/bootstrap.min.js" %}"></script>
 
     <!-- custom script js -->
-    <script src=" {% static "assets/js/script.js" %}"></script>
+    <script src="{% static "assets/js/script.js" %}"></script>
 </body>
 
 </html>

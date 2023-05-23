@@ -73,28 +73,40 @@ def search(request):
             return render(request, 'loader.html', context)
     return render(request, 'index.html')
 
+import openpyxl
+from openpyxl.utils import get_column_letter
+from openpyxl.styles import Font
+from django.http import HttpResponse
+from openpyxl import Workbook
+
+
+from openpyxl import Workbook
 
 def save_to_excel(request):
-    if request.method == 'GET':
-        query = request.GET.get('q')
-        search_results = get_serp_results(request)
-        
-        # Create a DataFrame from the search results
-        df = pd.DataFrame(search_results)
-        
-        # Select the desired columns
-        columns = ['title', 'website', 'rating', 'address', 'phone']
-        
-        # Save the DataFrame to an Excel file
-        filepath = 'search_results.xlsx'
-        df.to_excel(filepath, index=False)
-        
-        # Prepare the response for file download
-        with open(filepath, 'rb') as file:
-            response = HttpResponse(file.read(), content_type='application/vnd.ms-excel')
-            response['Content-Disposition'] = 'attachment; filename="search_results.xlsx"'
-    
+    results = get_serp_results(request)
+
+    # Create a new Excel workbook
+    wb = Workbook()
+    sheet = wb.active
+
+    # Add headers to the sheet
+    headers = ['Name', 'Website', 'Rating', 'Address', 'Phone']
+    sheet.append(headers)
+
+    # Populate the data in the sheet
+    for result in results:
+        row_data = [result.get('title'), result.get('website'), result.get('rating'), result.get('address'), result.get('phone')]
+        sheet.append(row_data)
+
+    # Create a response with the Excel file
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = 'attachment; filename=serp_results.xlsx'
+
+    # Save the workbook to the response
+    wb.save(response)
+
     return response
+
 
 
 
@@ -115,41 +127,3 @@ def search_faq(request):
 
 
 
-
-# def search_results(request):
-#     query = request.GET.get('query') # get the user's query from the GET parameters
-#     if query:
-#         url = "https://serpapi.com/search"
-#         businesses = []
-#         params={
-#                 'location': query.split('in ')[-1],
-#                 'term': query.split('in ')[0],
-#                 'limit': 50
-#                 }
-#         # params = {'term': query, 'location': 'Australia'}
-#         response = requests.get(url, headers=headers, params=params)
-#         data = response.json()['businesses']
-#         print(data)
-        
-#         df = pd.DataFrame(columns=['Name', 'Rating', 'Address', 'Phone'])
-#         for business in data:
-#             name = business['name']
-#             rating = business['rating']
-#             address = ', '.join(business['location']['display_address'])
-#             phone = business['display_phone']
-#             df = df.append({'Name': name, 'Rating': rating, 'Address': address, 'Phone': phone}, ignore_index=True)
-#         # convert dataframe to excel file
-#         excel_file = df.to_excel('results.xlsx', index=False)
-#         # return rendered response
-#         context = {'data': data}
-#         return render(request, 'loader.html', context)
-#     else:
-#         return render(request, 'index.html')
-
-
-# def save_to_excel(request):
-#     file_path = 'results.xlsx'
-#     with open(file_path, 'rb') as fh:
-#         response = HttpResponse(fh.read(), content_type='application/vnd.ms-excel')
-#         response['Content-Disposition'] = 'attachment; filename=' + file_path.split('/')[-1]
-#         return response
