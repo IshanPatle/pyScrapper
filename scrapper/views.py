@@ -10,7 +10,7 @@ from django.http import HttpResponseRedirect
 from .forms import QueryForm
 from .serializer import UserSerializer
 
-from openpyxl import Workbook
+from openpyxl import Workbook  
 import requests
 from googlesearch import search
 from rest_framework import viewsets
@@ -39,9 +39,12 @@ def loader(request):
 def login(request):
     return render(request, 'login.html')
 
+map_results = []
+
 def get_serp_results(request):
     
     # Serp API endpoint and parameters
+    global map_results  
     api_key = 'ab5c8496b40ee68d2b887dc8587cdb62b0f538ad87b479ae1374280242ef084c'
     query = request.GET.get('q', '')  # Get the query entered by the user
     search_engine = 'google_maps'
@@ -83,8 +86,7 @@ from openpyxl import Workbook
 from openpyxl import Workbook
 
 def save_to_excel(request):
-    results = get_serp_results(request)
-
+    global map_results
     # Create a new Excel workbook
     wb = Workbook()
     sheet = wb.active
@@ -94,7 +96,7 @@ def save_to_excel(request):
     sheet.append(headers)
 
     # Populate the data in the sheet
-    for result in results:
+    for result in map_results:
         row_data = [result.get('title'), result.get('website'), result.get('rating'), result.get('address'), result.get('phone')]
         sheet.append(row_data)
 
