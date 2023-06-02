@@ -7,7 +7,6 @@ from django.conf import settings
 from . import views
 from django.conf.urls.static import static
 from .views import save_to_excel, search
-from .views import search, save_to_excel
 
 
 
@@ -19,7 +18,7 @@ urlpatterns = [
     path('loader/', views.loader, name='loader'),
     path('login/', views.login, name='login'),
     path('search/', views.search, name='search'),
-    path('save-to-excel/', views.save_to_excel, name='save-to-excel'),
+    path('save_to_excel/', views.save_to_excel, name='save_to_excel'),
     re_path(r'^download/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
     ]
 

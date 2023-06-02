@@ -188,10 +188,8 @@
                                     </table>
                                     <br>
                                     <div style="text-align: center;">   
-                                      <form action="{% url 'save-to-excel' %}" method="GET">
-                                        {% csrf_token %}
-                                        <button type="submit" class="btn btn-primary">Download Excel</button>
-                                      </form>
+                                      <form method="get" action="{% url 'save_to_excel' %}">    
+                                      <button style="margin: 10px;">Download</button>
                                     </div>  
                                     <br>
                                 </div>
