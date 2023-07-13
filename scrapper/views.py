@@ -10,7 +10,7 @@ from django.http import HttpResponseRedirect
 from .forms import QueryForm
 from .serializer import UserSerializer
 
-from openpyxl import Workbook  
+from openpyxl import Workbook
 import requests
 from googlesearch import search
 from rest_framework import viewsets
@@ -45,27 +45,54 @@ def get_serp_results(request):
     
     # Serp API endpoint and parameters
     global map_results  
-    api_key = 'ab5c8496b40ee68d2b887dc8587cdb62b0f538ad87b479ae1374280242ef084c'
-    query = request.GET.get('q', '')  # Get the query entered by the user
+    map_results= []
+    start = 0
+    # api_key = '7fdb7a9b8d8007d43e10d5c8698a834b0528bc41455c0fe3c7f5b87f6ac415c2' #support -PCon
+    api_key = 'cfc8631972b4920cdcc97dd41a3a6a6528503b604a8381a5c6603e7788befde9' 
+    # '002ae278dd8df72fa9a4125af4e40c9c5fcc96cae780f08de4a1d48b5d3fac86' - L of i
+    # '91039cff9059ebf9f60e7189fe10ac358d028eacb52e4bde52831b17a2314f77' - zep.peg
+    query = request.GET.get('q', '')  
     search_engine = 'google_maps'
-    num_results = 30  # Number of results to retrieve
+    num_results = 20
 
-    # Extract the number and location from the query using regular expressions
     number_match = re.search(r'\b(\d+)\b', query)
     location_match = re.search(r'in\s+([^,]+)', query)
 
     number = int(number_match.group(1)) if number_match else num_results
     location = location_match.group(1).strip() if location_match else ''  # Default location if not specified
-
-    url = f"https://serpapi.com/search.json?engine={search_engine}&q={query}&location={location}&num={number}&api_key={api_key}"
+    
+    #Open cage API parameters
+    q = location
+    key = 'be3984f8e5a042abbf6af3a3a8d5c604'
+    geo_url = f"https://api.opencagedata.com/geocode/v1/json?q={q}&key={key}&language=en"
     try:
-        response = requests.get(url)
-        data = response.json()
-        map_results = data.get('local_results', [])
+        response_geo = requests.get(geo_url)
+        data_geo = response_geo.json()
+        lat = data_geo["results"][0]["geometry"]["lat"]
+        lng = data_geo["results"][0]["geometry"]["lng"]
+        ll = f"@{lat},{lng},21z"
     except requests.RequestException as e:
         # Handle request exception
-        map_results = []
-    return map_results;
+        data_geo = None
+    
+    
+    # url = f"https://serpapi.com/search.json?engine={search_engine}&q={query}&api_key={api_key}"
+    while start < number: 
+        remaining_results = number - len(map_results)  # Calculate the remaining number of results needed
+        batch_size = min(20, remaining_results)
+        url = f"https://serpapi.com/search.json?engine={search_engine}&q={query}&api_key={api_key}&start={start}&ll={ll}"
+        try: 
+            response = requests.get(url)
+            data = response.json()
+            batch_results = data.get('local_results', [])
+            map_results.extend(batch_results)
+            start += 20
+        except requests.RequestException as e:
+            break
+    
+    map_results = map_results[:number]
+    return map_results
+
 
 def search(request):
     if request.method == 'GET':
@@ -87,6 +114,7 @@ from openpyxl import Workbook
 
 def save_to_excel(request):
     global map_results
+
     # Create a new Excel workbook
     wb = Workbook()
     sheet = wb.active

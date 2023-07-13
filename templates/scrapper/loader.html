@@ -5,7 +5,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge, width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Data GPT</title>
   <!-- Bootstrap CSS -->
@@ -13,6 +13,8 @@
   <link rel="stylesheet" href="{% static "assets/css/font-awesome.min.css" %}">
   <!-- general css -->
   <link rel="stylesheet" href="{% static "assets/css/style.css" %}">
+  <link rel="stylesheet" href="{% static "assets/css/style1.css" %}">
+
   <link rel="stylesheet" href="{% static "assets/css/responsive.css" %}"> 
   <!-- Custom css -->
 </head>
@@ -115,40 +117,53 @@
                                         </div>
                                     </div> {% endcomment %}
                                 </br>
-                                <div id="table-container">
-                                    <table id="my-table" style="margin: auto; width: 80%; border-collapse: collapse;">
-                                      <thead style="background-color: #ddd;">
-                                        <tr>
-                                          <th style="border: 1px solid black; padding: 10px;">Name</th>
-                                          <th style="border: 1px solid black; padding: 10px;">Website</th>
-                                          <th style="border: 1px solid black; padding: 10px;">Rating</th>
-                                          <th style="border: 1px solid black; padding: 10px;">Address</th>
-                                          <th style="border: 1px solid black; padding: 10px;">Phone</th>    
-                                        </tr>
-                                      </thead>
-                                      <tbody>
-                                        {% for result in results %}                                        
-                                        <tr style="border: 1px solid black;">
-                                          <td style="border: 1px solid black; padding: 10px;">{{ result.title }}</td>
-                                          <td style="border: 1px solid black; padding: 10px;">
-                                            <a href="{{ website }}">{{ result.website }}</a>
-                                          </td>
-                                          <td style="border: 1px solid black; padding: 10px;">{{ result.rating }}</td>
-                                          <td style="border: 1px solid black; padding: 10px;">{{ result.address }}</td>                                    </td>
-                                          <td style="border: 1px solid black; padding: 10px;">{{ result.phone }}</td>
-                                        </tr>
-                                        {% endfor %}
-                                      </tbody>
-                                      <div style="padding-right: 110px; text-align: right;" id="pagination">
-                                        <button id="prev-btn">Previous</button>
-                                        <button id="next-btn">Next</button>
+                                <div style="padding-right: 20px; text-align: center;" id="pagination">
+                                  <form method="get" action="{% url 'save_to_excel' %}">    
+                                  <button style="margin: 10px;">Download</button>
+                                {% comment %} <button id="prev-btn">Previous</button>
+                                <button id="next-btn">Next</button>
+                                <button id="load-more-btn">Load more</button> {% endcomment %}
+                                </div>  
+                                <br>
+                                
+                                <section class="ftco-section">
+                                  <div class="container">
+                                    <div class="row">
+                                      <div class="col-md-12">
+                                        <div class="table-wrap">
+                                          <table class="table table-bordered table-dark table-hover">
+                                            <thead>
+                                              <tr>
+                                                <th>Name</th>
+                                                <th>Website</th>
+                                                <th>Rating</th>
+                                                <th>Address</th>
+                                                <th>Phone</th>
+                                              </tr>
+                                            </thead>
+                                            <tbody>
+                                              {% for result in results %}
+                                                <tr>
+                                                  <td>{{ result.title }}</td>
+                                                  <td><a href="{{ website }}">{{ result.website }}</a></td>
+                                                  <td>{{ result.rating }}</td>
+                                                  <td>{{ result.address }}</td>
+                                                  <td style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ result.phone }}</td>
+                                                </tr>
+                                              {% endfor %}
+                                            </tbody>
+                                          </table>
+                                        </div>
                                       </div>
-                                      <br>
-                                      <script>
+                                    </div>
+                                  </div>
+                                </section>
+                              
+                                      {% comment %} <script>
                                         var table = document.getElementById("my-table");
                                         var rows = table.getElementsByTagName("tr");
                                         var currentPage = 1;
-                                        var rowsPerPage = 10;
+                                        var rowsPerPage = 20;
                                       
                                         function showPage(page) {
                                           var startIndex = (page - 1) * rowsPerPage;
@@ -176,22 +191,31 @@
                                             showPage(currentPage);
                                           }
                                         }
+
+                                        function loadMore() {
+                                          var remainingRows = totalRows - numLoadedRows;
+                                          var rowsToLoad = Math.min(rowsPerPage, remainingRows);
+                                          
+                                          for (var i = numLoadedRows; i < numLoadedRows + rowsToLoad; i++) {
+                                            rows[i].style.display = "";
+                                          }
+                                          
+                                          numLoadedRows += rowsToLoad;
+                                          
+                                          if (numLoadedRows >= totalRows) {
+                                            loadMoreBtn.style.display = "none";
+                                          }
+                                        }
                                       
                                         document.getElementById("prev-btn").addEventListener("click", goToPreviousPage);
                                         document.getElementById("next-btn").addEventListener("click", goToNextPage);
+                                        loadMoreBtn.addEventListener("click", loadMore);
                                       
                                         // Show the initial page
                                         showPage(currentPage);
-                                      </script>
+                                      </script> {% endcomment %}
 
-                                    {% comment %} </table> {% endcomment %}
-                                    </table>
-                                    <br>
-                                    <div style="text-align: center;">   
-                                      <form method="get" action="{% url 'save_to_excel' %}">    
-                                      <button style="margin: 10px;">Download</button>
-                                    </div>  
-                                    <br>
+                                    {% comment %} </table> {% endcomment %}                                    
                                 </div>
                                 </div>
                             </div>
@@ -207,6 +231,11 @@
     <script src="{% static "assets/js/jquery-3.6.0.min.js" %}"></script>
     <script src="{% static "assets/js/popper.min.js" %}"></script>
     <script src="{% static "assets/js/bootstrap.min.js" %}"></script>
+
+    <script src="{% static "assets/js/jquery1.min.js" %}"></script>
+    <script src="{% static "assets/js/popper1.js" %}"></script>
+    <script src="{% static "assets/js/bootstrap1.min.js" %}"></script>
+    <script src="{% static "assets/js/main1.js" %}"></script>
 
     <!-- custom script js -->
     <script src="{% static "assets/js/script.js" %}"></script>
